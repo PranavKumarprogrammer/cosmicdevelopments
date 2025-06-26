@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cosmic Developments</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts - Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* Base styles from Inter font */
+        body {
+          font-family: 'Inter', sans-serif;
+        }
+
+        /* Custom animations */
+        @keyframes fadeIn {
+          from { opacity: 0; }
+          to { opacity: 1; }
+        }
+
+        @keyframes fadeInUp {
+          from { opacity: 0; transform: translateY(20px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInLeft {
+          from { opacity: 0; transform: translateX(-20px); }
+          to { opacity: 1; transform: translateX(0); }
+        }
+
+        @keyframes fadeInRight {
+          from { opacity: 0; transform: translateX(20px); }
+          to { opacity: 1; transform: translateX(0); }
+        }
+
+        .animate-fade-in { animation: fadeIn 1s ease-out forwards; }
+        .animate-fade-in-up { animation: fadeInUp 1s ease-out forwards; }
+        .animate-fade-in-left { animation: fadeInLeft 1s ease-out forwards; }
+        .animate-fade-in-right { animation: fadeInRight 1s ease-out forwards; }
+
+        /* Star blink animation */
+        @keyframes starBlink {
+          0%, 100% { opacity: 0; }
+          50% { opacity: 0.8; }
+        }
+        .animate-star-blink {
+          animation: starBlink 2s infinite ease-in-out;
+        }
+
+        /* Star rotate animation */
+        @keyframes starRotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        .animate-star-rotate {
+            animation: starRotate 100s linear infinite; /* Slow, continuous rotation */
+        }
+
+        /* Button pulse animation */
+        @keyframes buttonPulse {
+          0%, 100% { transform: scale(1); }
+          50% { transform: scale(1.03); }
+        }
+        .animate-button-pulse {
+          animation: buttonPulse 2s infinite ease-in-out;
+        }
+
+        /* Float icon animation */
+        @keyframes floatIcon {
+          0%, 100% { transform: translateY(0); }
+          50% { transform: translateY(-10px); }
+        }
+        .animate-float-icon {
+          animation: floatIcon 3s ease-in-out infinite;
+        }
+
+        /* Wobble icon animation */
+        @keyframes wobbleIcon {
+          0%, 100% { transform: rotate(0deg); }
+          15% { transform: rotate(-5deg); }
+          30% { transform: rotate(5deg); }
+          45% { transform: rotate(-3deg); }
+          60% { transform: rotate(3deg); }
+          75% { transform: rotate(-1deg); }
+          90% { transform: rotate(1deg); }
+        }
+        .animate-wobble-icon {
+          animation: wobbleIcon 1s ease-in-out;
+        }
+
+        /* Project Card specific animation when in view */
+        .project-card-enter {
+          opacity: 0;
+          transform: translateY(50px);
+        }
+        .project-card-enter-active {
+          opacity: 1;
+          transform: translateY(0);
+          transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+
+        /* Floating text animation */
+        @keyframes floatText {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-5px); }
+            100% { transform: translateY(0px); }
+        }
+        .animate-float-text {
+            animation: floatText 3s ease-in-out infinite;
+        }
+        .animate-float-text-slow {
+            animation: floatText 4s ease-in-out infinite; /* Slower float for subtle effect */
+        }
+
+        /* Typing effect caret animation */
+        @keyframes blinkCaret {
+            from, to { border-color: transparent; }
+            50% { border-color: currentColor; }
+        }
+        .animate-blink-caret {
+            border-right: 2px solid;
+            animation: blinkCaret 0.75s step-end infinite;
+        }
+
+        /* Fade in and scale up animation for section titles */
+        @keyframes fadeInScaleUp {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        .animate-fade-in-scale-up {
+            animation: fadeInScaleUp 1s ease-out forwards;
+        }
+
+        /* Modal entry animation */
+        @keyframes scaleIn {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        .animate-scale-in {
+            animation: scaleIn 0.3s ease-out forwards;
+        }
+
+        /* Big navigation button (no longer in navbar, but definition kept if used elsewhere) */
+        .big-nav-button {
+            position: relative; /* Added for absolute child positioning */
+            padding: 12px 32px;
+            font-size: 1.125rem; /* text-lg */
+            font-weight: 700; /* font-bold */
+            border-radius: 9999px; /* rounded-full */
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(90deg, #6d28d9 0%, #7c3aed 100%); /* Purple gradient default */
+            color: white;
+            transition: all 0.4s ease-out;
+            box-shadow: 0 4px 15px rgba(109, 40, 217, 0.4);
+            border: 2px solid rgba(255,255,255,0.3); /* Lighter border */
+            text-shadow: 0 0 5px rgba(255,255,255,0.7);
+        }
+
+        .big-nav-button:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 8px 25px rgba(109, 40, 217, 0.6); /* More intense shadow */
+            background: linear-gradient(90deg, #7c3aed 0%, #9333ea 100%); /* Shifted gradient on hover */
+        }
+
+        .big-nav-button .big-nav-button-border {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 9999px;
+            background: linear-gradient(45deg, #c084fc, #a78bfa); /* Brighter gradient border */
+            opacity: 0;
+            transform: scale(1.3);
+            transition: all 0.4s ease-out;
+            z-index: -1;
+        }
+
+        .big-nav-button:hover .big-nav-button-border {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        /* Utility classes for initial hidden state if JavaScript is slow */
+        .hidden-until-js {
+            opacity: 0;
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-black via-gray-950 to-indigo-950 text-gray-100 font-inter antialiased overflow-x-hidden">
+
+    <!-- Navbar (fixed at top with blurred background) -->
+    <nav class="fixed w-full z-50 p-4 bg-gray-900 bg-opacity-80 backdrop-blur-sm shadow-lg">
+        <div class="container mx-auto flex flex-col md:flex-row justify-between items-center">
+            <a href="#" class="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-300 to-purple-600 mb-4 md:mb-0">
+                Cosmic Developments
+            </a>
+            <!-- Light.dev button was removed -->
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="hero-section" class="relative h-screen flex items-center justify-center text-center p-4">
+        <!-- Subtle background overlay for cosmic effect -->
+        <div class="absolute inset-0 bg-black opacity-20 z-0"></div>
+        <!-- Starry background effect - enhanced with more stars and twinkling -->
+        <div class="absolute inset-0 z-0 overflow-hidden" id="star-container">
+            <!-- Stars will be injected here by JavaScript -->
+        </div>
+
+        <div class="relative z-10 p-6 bg-gray-900 bg-opacity-70 rounded-xl shadow-2xl animate-fade-in-up">
+            <h1 class="text-5xl md:text-7xl font-extrabold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 to-fuchsia-500 animate-float-text">
+                Cosmic Developments
+            </h1>
+            <p id="typed-slogan" class="text-xl md:text-2xl text-gray-300 max-w-2xl mx-auto min-h-[60px] md:min-h-[70px] flex items-center justify-center">
+                <!-- Typing effect will render here -->
+            </p>
+            <button id="visit-light-dev-button" class="mt-8 px-8 py-3 bg-gradient-to-r from-purple-700 to-indigo-800 hover:from-purple-800 hover:to-indigo-900 text-white font-semibold rounded-full shadow-lg transform transition-transform duration-300 hover:scale-105 animate-button-pulse">
+                Visit Light.dev
+            </button>
+        </div>
+    </section>
+
+    <!-- Projects Section - Combined for both released and upcoming -->
+    <section id="projects-section" class="container mx-auto py-16 px-4">
+        <h2 class="text-4xl font-bold text-center mb-12 text-transparent bg-clip-text bg-gradient-to-r from-red-400 to-yellow-300">
+            Our Galactic Creations
+        </h2>
+
+        <!-- Released Projects -->
+        <div class="mb-16">
+            <h3 class="text-3xl font-semibold mb-4 text-center text-gray-200">
+                Released Projects
+            </h3>
+            <p class="text-lg text-gray-400 text-center mb-8">
+                These released projects were launched in 2024 without an official website, only on Discord. However, every upcoming release will feature its own official website and additional information.
+            </p>
+            <div id="released-projects-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Released Project Cards will be injected here by JavaScript -->
+            </div>
+        </div>
+
+        <!-- Upcoming Projects -->
+        <div id="upcoming-projects-container">
+            <h3 class="text-3xl font-semibold mb-8 text-center text-gray-200">
+                Upcoming Releases
+            </h3>
+            <div id="upcoming-project-cards" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Upcoming Project Cards will be injected here by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Nebula Chat Section -->
+    <section id="nebula-chat-section" class="bg-gray-900 bg-opacity-70 py-16 px-4">
+        <div class="container mx-auto flex flex-col lg:flex-row items-center gap-12">
+            <div class="lg:w-1/2 text-center lg:text-left">
+                <h2 class="text-4xl font-bold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-teal-300 to-emerald-400 animate-float-text">
+                    Nebula Chat
+                </h2>
+                <p class="text-xl text-gray-300 mb-6 leading-relaxed">
+                    Under Cosmic Developments, we present <span class="font-semibold text-white animate-float-text">Nebula Chat</span>, the most premium secure messaging app you've ever seen.
+                </p>
+                <ul class="list-disc list-inside text-gray-400 text-lg space-y-2">
+                    <li>World-class end-to-end encryption.</li>
+                    <li>Sleek, intuitive user interface.</li>
+                    <li>Advanced privacy features.</li>
+                    <li>Seamless cross-platform experience.</li>
+                </ul>
+                <button id="discover-nebula-chat-button" class="mt-8 px-8 py-3 bg-gradient-to-r from-teal-600 to-emerald-700 hover:from-teal-700 hover:to-emerald-800 text-white font-semibold rounded-full shadow-lg transform transition-transform duration-300 hover:scale-105">
+                    Discover Nebula Chat
+                </button>
+            </div>
+            <div class="lg:w-1/2 flex justify-center">
+                <!-- Placeholder for an image or illustration -->
+                <div class="w-full max-w-md bg-gray-800 rounded-xl p-8 shadow-2xl border border-gray-700 text-center">
+                    <span class="text-8xl animate-float-icon">💬</span>
+                    <p class="text-gray-400 mt-4">Secure Messaging Reimagined</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Me Section -->
+    <section id="about-me-section" class="container mx-auto py-16 px-4 text-center">
+        <h2 class="text-4xl font-bold mb-8 text-transparent bg-clip-text bg-gradient-to-r from-orange-300 to-pink-500">
+            Meet the Creator
+        </h2>
+        <div class="bg-gray-900 bg-opacity-70 rounded-xl p-8 max-w-2xl mx-auto shadow-2xl">
+            <div class="text-6xl mb-4">👨‍💻</div>
+            <p class="text-xl text-gray-300 mb-4">
+                Hello! I'm <span class="font-bold text-white animate-float-text-slow">Pranav (Light.)</span>, the mind behind Cosmic Developments.
+            </p>
+            <p class="text-lg text-gray-400">
+                Based in Chandigarh, India, I'm passionate about building innovative solutions that push the boundaries of technology and deliver world-class experiences.
+            </p>
+        </div>
+    </section>
+
+    <!-- Contact Me Section -->
+    <section id="contact-me-section" class="bg-gray-900 bg-opacity-70 py-16 px-4">
+        <div class="container mx-auto text-center">
+            <h2 class="text-4xl font-bold mb-8 text-transparent bg-clip-text bg-gradient-to-r from-blue-300 to-purple-500">
+                Get in Touch
+            </h2>
+            <div class="bg-gray-800 rounded-xl p-8 max-w-xl mx-auto shadow-2xl border border-gray-700">
+                <p class="text-xl text-gray-300 mb-4">
+                    Have a project idea, a question, or just want to say hello?
+                </p>
+                <p class="text-lg text-gray-400 mb-6">
+                    Feel free to reach out to Pranav (Light.)
+                </p>
+                <p class="text-2xl font-bold text-purple-400 mb-4 animate-float-text-slow">
+                    Email: <a href="mailto:pranavinspiron@gmail.com" class="hover:underline">pranavinspiron@gmail.com</a>
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-950 bg-opacity-80 py-8 px-4 text-center text-gray-500 text-sm">
+        <div class="container mx-auto">
+            <p class="mt-2">Crafted with passion by Pranav (Light.)</p>
+            <button id="rights-reserved-button" class="text-gray-500 hover:text-white hover:underline transition-colors duration-200 mt-2 text-sm">
+                &copy; 2024 Cosmic Developments. All rights reserved.
+            </button>
+        </div>
+    </footer>
+
+    <!-- Modals -->
+    <div id="rights-modal" class="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 p-4 hidden">
+        <div class="bg-gray-900 rounded-xl shadow-2xl p-8 max-w-lg w-full relative border border-purple-700 animate-scale-in">
+            <button id="rights-modal-close" class="absolute top-4 right-4 text-gray-400 hover:text-white text-3xl font-bold transition-colors duration-200">
+                &times;
+            </button>
+            <h2 class="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-300 to-purple-500 mb-4">
+                Copyright & Terms
+            </h2>
+            <p class="text-gray-300 mb-4">
+                All content, projects, and intellectual property associated with Cosmic Developments are
+                the exclusive property of Pranav (Light.), unless otherwise stated. Unauthorized use,
+                reproduction, or distribution of any materials without express written permission is strictly prohibited.
+            </p>
+            <p class="text-gray-400 text-sm">
+                This website and its contents are provided "as is" without any warranties, express or implied.
+                We reserve the right to modify or discontinue any part of our services or projects without prior notice.
+            </p>
+        </div>
+    </div>
+
+    <div id="project-info-modal" class="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 p-4 hidden">
+        <div class="bg-gray-900 rounded-xl shadow-2xl p-8 max-w-lg w-full relative border border-purple-700 animate-scale-in">
+            <button id="project-info-modal-close" class="absolute top-4 right-4 text-gray-400 hover:text-white text-3xl font-bold transition-colors duration-200">
+                &times;
+            </button>
+            <h2 id="project-info-title" class="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-teal-300 to-emerald-400 mb-4">
+                <!-- Project name will be injected here -->
+            </h2>
+            <p id="project-info-details" class="text-gray-300 mb-4">
+                <!-- Project details will be injected here -->
+            </p>
+            <p class="text-gray-400 text-sm">
+                Stay tuned for more updates and detailed information as we get closer to launch!
+            </p>
+        </div>
+    </div>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- DOM Elements ---
+            const heroSection = document.getElementById('hero-section');
+            const projectsSection = document.getElementById('projects-section');
+            const nebulaChatSection = document.getElementById('nebula-chat-section');
+            const aboutMeSection = document.getElementById('about-me-section');
+            const contactMeSection = document.getElementById('contact-me-section');
+
+            const typedSloganElement = document.getElementById('typed-slogan');
+            const visitLightDevButton = document.getElementById('visit-light-dev-button');
+            const discoverNebulaChatButton = document.getElementById('discover-nebula-chat-button');
+            const rightsReservedButton = document.getElementById('rights-reserved-button');
+
+            const rightsModal = document.getElementById('rights-modal');
+            const rightsModalCloseButton = document.getElementById('rights-modal-close');
+            const projectInfoModal = document.getElementById('project-info-modal');
+            const projectInfoModalCloseButton = document.getElementById('project-info-modal-close');
+            const projectInfoTitle = document.getElementById('project-info-title');
+            const projectInfoDetails = document.getElementById('project-info-details');
+
+            const releasedProjectsContainer = document.getElementById('released-projects-container');
+            const upcomingProjectCardsContainer = document.getElementById('upcoming-project-cards');
+            const starContainer = document.getElementById('star-container');
+
+            // --- Data ---
+            const originalSlogan = "Unleashing groundbreaking innovation across the digital cosmos.";
+            const projectsData = [
+                {
+                    name: "Cosmic MC",
+                    description: "The world's best Minecraft server network, redefining gaming experiences with unparalleled features and community.",
+                    status: "Released",
+                    icon: "🚀"
+                },
+                {
+                    name: "Cosmic Ni",
+                    description: "A revolutionary platform pushing the boundaries of digital interaction and innovation.",
+                    status: "Released",
+                    icon: "✨"
+                },
+                {
+                    name: "Cosmic AI",
+                    description: "Pioneering artificial intelligence that learns, adapts, and innovates to solve complex challenges.",
+                    status: "Upcoming",
+                    icon: "🧠",
+                    aboutUrl: "https://about-cosmic-ai.vercel.app/"
+                },
+                {
+                    name: "Cosmic Weather",
+                    description: "Predicting the future of weather with unprecedented accuracy and real-time insights.",
+                    status: "Upcoming",
+                    icon: "🌤️",
+                    aboutUrl: "https://cosmicweather.vercel.app/" // Updated URL for Cosmic Weather
+                }
+            ];
+
+            // --- State Variables (Mimicking React's useState) ---
+            let typedSloganText = "";
+            let isTypingComplete = false;
+            let isRightsModalOpen = false;
+            let isProjectInfoModalOpen = false;
+            let currentProjectInfo = { name: '', details: '' };
+
+            // --- Utility Functions ---
+
+            // Function to generate stars
+            const generateStars = () => {
+                const numberOfStars = 250;
+                for (let i = 0; i < numberOfStars; i++) {
+                    const star = document.createElement('div');
+                    star.className = 'absolute bg-white rounded-full opacity-0 animate-star-blink animate-star-rotate';
+                    star.style.width = `${Math.random() * 2 + 0.5}px`;
+                    star.style.height = `${Math.random() * 2 + 0.5}px`;
+                    star.style.top = `${Math.random() * 100}%`;
+                    star.style.left = `${Math.random() * 100}%`;
+                    star.style.animationDelay = `${Math.random() * 5}s`;
+                    star.style.animationDuration = `${Math.random() * 3 + 2}s`;
+                    starContainer.appendChild(star);
+                }
+            };
+
+            // Project Card Renderer
+            const renderProjectCard = (project, inView, delay) => {
+                const cardDiv = document.createElement('div');
+                const cardStyle = project.status === "Released"
+                    ? "bg-gradient-to-br from-gray-800 to-gray-700 border-purple-600"
+                    : "bg-gradient-to-br from-indigo-800 to-purple-800 border-blue-600";
+                const statusColor = project.status === "Released" ? "bg-green-500" : "bg-yellow-500";
+                const animationClasses = inView ? `project-card-enter-active` : `project-card-enter`;
+
+                cardDiv.className = `relative rounded-xl p-6 shadow-xl border-2 ${cardStyle} transform transition-transform duration-300 hover:scale-105 hover:shadow-purple-500/50 ${animationClasses}`;
+                cardDiv.style.animationDelay = inView ? `${delay}s` : '0s';
+
+                cardDiv.innerHTML = `
+                    <div class="absolute top-4 right-4 text-4xl">${project.icon}</div>
+                    <h3 class="text-2xl font-bold mb-3 text-white">${project.name}</h3>
+                    <p class="text-gray-300 mb-4 text-base">${project.description}</p>
+                    <div class="flex justify-between items-center mt-4">
+                        <div class="inline-block px-4 py-1 text-sm font-semibold text-white rounded-full ${statusColor}">
+                            ${project.status}
+                        </div>
+                        ${project.status === "Upcoming" ? `
+                            <button class="about-project-button px-4 py-2 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white text-sm font-semibold rounded-full shadow-md transform transition-transform duration-300 hover:scale-105">
+                                About
+                            </button>
+                        ` : ''}
+                    </div>
+                `;
+
+                // Add event listener for the About button
+                if (project.status === "Upcoming") {
+                    const aboutButton = cardDiv.querySelector('.about-project-button');
+                    if (aboutButton) {
+                        aboutButton.addEventListener('click', () => {
+                            if (project.aboutUrl) {
+                                window.open(project.aboutUrl, '_blank');
+                            } else if (project.aboutInfo) {
+                                openProjectInfoModal(project.aboutInfo.name, project.aboutInfo.details);
+                            }
+                        });
+                    }
+                }
+                return cardDiv;
+            };
+
+            // --- Typing Animation ---
+            let sloganCurrentIndex = 0; // Tracks current position in originalSlogan
+            let currentSloganText = ""; // Stores the text currently being built for the slogan
+
+            const startTypingAnimation = () => {
+                sloganCurrentIndex = 0;
+                currentSloganText = "";
+                typedSloganElement.textContent = ""; // Clear previous content
+
+                // Create the caret element once
+                const caret = document.createElement('span');
+                caret.className = 'animate-blink-caret ml-1 text-purple-400';
+                caret.textContent = '|';
+                typedSloganElement.appendChild(caret); // Append it initially
+
+                const typingInterval = setInterval(() => {
+                    if (sloganCurrentIndex < originalSlogan.length) {
+                        currentSloganText += originalSlogan.charAt(sloganCurrentIndex);
+                        typedSloganElement.textContent = currentSloganText; // Update text content
+                        typedSloganElement.appendChild(caret); // Re-append caret after text content
+                        sloganCurrentIndex++;
+                    } else {
+                        clearInterval(typingInterval);
+                        isTypingComplete = true;
+                        // Remove caret after typing is complete
+                        if (typedSloganElement.querySelector('.animate-blink-caret')) {
+                            typedSloganElement.querySelector('.animate-blink-caret').remove();
+                        }
+                    }
+                }, 50); // Typing speed
+            };
+
+
+            // --- Modal Functions ---
+            const openModal = (modalElement) => {
+                modalElement.classList.remove('hidden');
+                modalElement.classList.add('flex'); // Ensure flex for centering
+                // Set state based on which modal is open
+                if (modalElement.id === 'rights-modal') {
+                    isRightsModalOpen = true;
+                } else if (modalElement.id === 'project-info-modal') {
+                    isProjectInfoModalOpen = true;
+                }
+            };
+
+            const closeModal = (modalElement) => {
+                modalElement.classList.add('hidden');
+                modalElement.classList.remove('flex');
+                 // Set state based on which modal is closed
+                if (modalElement.id === 'rights-modal') {
+                    isRightsModalOpen = false;
+                } else if (modalElement.id === 'project-info-modal') {
+                    isProjectInfoModalOpen = false;
+                }
+            };
+
+            const openProjectInfoModal = (name, details) => {
+                projectInfoTitle.textContent = `About ${name}`;
+                projectInfoDetails.textContent = details;
+                openModal(projectInfoModal);
+            };
+
+            // --- Event Listeners ---
+
+            // Hero button click
+            visitLightDevButton.addEventListener('click', () => {
+                window.open('https://itslight.vercel.app/', '_blank');
+            });
+
+            // Discover Nebula Chat button click
+            discoverNebulaChatButton.addEventListener('click', () => {
+                window.open('https://nebulachat-eosin.vercel.app/', '_blank');
+            });
+
+            // All Rights Reserved button click
+            rightsReservedButton.addEventListener('click', () => {
+                openModal(rightsModal);
+            });
+
+            // Close modal buttons
+            rightsModalCloseButton.addEventListener('click', () => closeModal(rightsModal));
+            projectInfoModalCloseButton.addEventListener('click', () => closeModal(projectInfoModal));
+
+            // --- Intersection Observer for Scroll Animations ---
+            const sectionObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const targetId = entry.target.id;
+                        switch(targetId) {
+                            case 'projects-section':
+                                // Render projects when this section is in view
+                                releasedProjectsContainer.innerHTML = ''; // Clear existing
+                                upcomingProjectCardsContainer.innerHTML = ''; // Clear existing
+
+                                // Filter and render released projects
+                                projectsData.filter(p => p.status === 'Released').forEach((project, index) => {
+                                    releasedProjectsContainer.appendChild(renderProjectCard(project, true, index * 0.1));
+                                });
+
+                                // Filter and render upcoming projects
+                                projectsData.filter(p => p.status === 'Upcoming').forEach((project, index) => {
+                                    upcomingProjectCardsContainer.appendChild(renderProjectCard(project, true, (index * 0.1) + 0.3)); // Add a bit more delay for upcoming
+                                });
+
+                                // Apply class for section title animation
+                                projectsSection.querySelector('h2').classList.add('animate-fade-in-scale-up');
+                                projectsSection.querySelector('h3:first-of-type').classList.add('animate-fade-in-left');
+                                projectsSection.querySelector('p:first-of-type').classList.add('animate-fade-in-up');
+                                projectsSection.querySelector('h3:last-of-type').classList.add('animate-fade-in-right');
+
+                                break;
+                            case 'nebula-chat-section':
+                                entry.target.querySelector('div:first-of-type').classList.add('animate-fade-in-left');
+                                entry.target.querySelector('div:last-of-type').classList.add('animate-fade-in-right');
+                                break;
+                            case 'about-me-section':
+                                entry.target.querySelector('h2').classList.add('animate-fade-in-scale-up');
+                                entry.target.querySelector('div.bg-gray-900').classList.add('animate-fade-in-up');
+                                entry.target.querySelector('div.bg-gray-900 .text-6xl').classList.add('animate-wobble-icon'); // Apply wobble to icon
+                                break;
+                            case 'contact-me-section':
+                                entry.target.querySelector('h2').classList.add('animate-fade-in-scale-up');
+                                entry.target.querySelector('div.bg-gray-800').classList.add('animate-fade-in-up');
+                                break;
+                        }
+                        // Only unobserve if you want the animation to play once
+                        // observer.unobserve(entry.target);
+                    } else {
+                        // Optional: Reset animations when out of view, if animations should replay on scroll back
+                        // For simplicity, we are not resetting here, but adding once for now.
+                    }
+                });
+            }, { threshold: 0.2 });
+
+            // Observe sections for animations
+            sectionObserver.observe(projectsSection);
+            sectionObserver.observe(nebulaChatSection);
+            sectionObserver.observe(aboutMeSection);
+            sectionObserver.observe(contactMeSection);
+
+            // Initial star generation and typing animation start
+            generateStars();
+            // Add a slight delay before starting the typing animation on load
+            setTimeout(() => {
+                startTypingAnimation();
+            }, 500); // Start typing 0.5 seconds after page load
+
+        });
+    </script>
+</body>
+</html>
