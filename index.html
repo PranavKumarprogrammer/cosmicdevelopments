@@ -509,13 +509,15 @@
                 const caret = document.createElement('span');
                 caret.className = 'animate-blink-caret ml-1 text-purple-400';
                 caret.textContent = '|';
-                typedSloganElement.appendChild(caret); // Append it initially
+                // Append caret initially to control its presence
+                typedSloganElement.appendChild(caret);
 
                 const typingInterval = setInterval(() => {
                     if (sloganCurrentIndex < originalSlogan.length) {
                         currentSloganText += originalSlogan.charAt(sloganCurrentIndex);
-                        typedSloganElement.textContent = currentSloganText; // Update text content
-                        typedSloganElement.appendChild(caret); // Re-append caret after text content
+                        // Temporarily remove caret, update text, then re-add caret
+                        typedSloganElement.textContent = currentSloganText;
+                        typedSloganElement.appendChild(caret);
                         sloganCurrentIndex++;
                     } else {
                         clearInterval(typingInterval);
