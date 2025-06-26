@@ -228,16 +228,16 @@
 
     <!-- Projects Section - Combined for both released and upcoming -->
     <section id="projects-section" class="container mx-auto py-16 px-4">
-        <h2 class="text-4xl font-bold text-center mb-12 text-transparent bg-clip-text bg-gradient-to-r from-red-400 to-yellow-300">
+        <h2 class="text-4xl font-bold text-center mb-12 text-transparent bg-clip-text bg-gradient-to-r from-red-400 to-yellow-300 animate-float-text">
             Our Galactic Creations
         </h2>
 
         <!-- Released Projects -->
         <div class="mb-16">
-            <h3 class="text-3xl font-semibold mb-4 text-center text-gray-200">
+            <h3 class="text-3xl font-semibold mb-4 text-center text-gray-200 animate-float-text">
                 Released Projects
             </h3>
-            <p class="text-lg text-gray-400 text-center mb-8">
+            <p class="text-lg text-gray-400 text-center mb-8 animate-fade-in-up">
                 These released projects were launched in 2024 without an official website, only on Discord. However, every upcoming release will feature its own official website and additional information.
             </p>
             <div id="released-projects-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -247,7 +247,7 @@
 
         <!-- Upcoming Projects -->
         <div id="upcoming-projects-container">
-            <h3 class="text-3xl font-semibold mb-8 text-center text-gray-200">
+            <h3 class="text-3xl font-semibold mb-8 text-center text-gray-200 animate-float-text">
                 Upcoming Releases
             </h3>
             <div id="upcoming-project-cards" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -263,7 +263,7 @@
                 <h2 class="text-4xl font-bold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-teal-300 to-emerald-400 animate-float-text">
                     Nebula Chat
                 </h2>
-                <p class="text-xl text-gray-300 mb-6 leading-relaxed">
+                <p class="text-xl text-gray-300 mb-6 leading-relaxed animate-float-text-slow">
                     Under Cosmic Developments, we present <span class="font-semibold text-white animate-float-text">Nebula Chat</span>, the most premium secure messaging app you've ever seen.
                 </p>
                 <ul class="list-disc list-inside text-gray-400 text-lg space-y-2">
@@ -272,9 +272,14 @@
                     <li>Advanced privacy features.</li>
                     <li>Seamless cross-platform experience.</li>
                 </ul>
-                <button id="discover-nebula-chat-button" class="mt-8 px-8 py-3 bg-gradient-to-r from-teal-600 to-emerald-700 hover:from-teal-700 hover:to-emerald-800 text-white font-semibold rounded-full shadow-lg transform transition-transform duration-300 hover:scale-105">
-                    Discover Nebula Chat
-                </button>
+                <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 mt-8">
+                    <button id="discover-nebula-chat-button" class="px-8 py-3 bg-gradient-to-r from-teal-600 to-emerald-700 hover:from-teal-700 hover:to-emerald-800 text-white font-semibold rounded-full shadow-lg transform transition-transform duration-300 hover:scale-105">
+                        Discover Nebula Chat
+                    </button>
+                    <span class="px-4 py-2 bg-gradient-to-r from-indigo-700 to-purple-800 text-white text-sm font-semibold rounded-full shadow-md animate-button-pulse-subtle">
+                        Set to be released in mid-2026
+                    </span>
+                </div>
             </div>
             <div class="lg:w-1/2 flex justify-center">
                 <!-- Placeholder for an image or illustration -->
@@ -288,15 +293,15 @@
 
     <!-- About Me Section -->
     <section id="about-me-section" class="container mx-auto py-16 px-4 text-center">
-        <h2 class="text-4xl font-bold mb-8 text-transparent bg-clip-text bg-gradient-to-r from-orange-300 to-pink-500">
+        <h2 class="text-4xl font-bold mb-8 text-transparent bg-clip-text bg-gradient-to-r from-orange-300 to-pink-500 animate-float-text">
             Meet the Creator
         </h2>
         <div class="bg-gray-900 bg-opacity-70 rounded-xl p-8 max-w-2xl mx-auto shadow-2xl">
-            <div class="text-6xl mb-4">👨‍💻</div>
-            <p class="text-xl text-gray-300 mb-4">
+            <div class="text-6xl mb-4 animate-wobble-icon">👨‍💻</div>
+            <p class="text-xl text-gray-300 mb-4 animate-float-text-slow">
                 Hello! I'm <span class="font-bold text-white animate-float-text-slow">Pranav (Light.)</span>, the mind behind Cosmic Developments.
             </p>
-            <p class="text-lg text-gray-400">
+            <p class="text-lg text-gray-400 animate-fade-in-up">
                 Based in Chandigarh, India, I'm passionate about building innovative solutions that push the boundaries of technology and deliver world-class experiences.
             </p>
         </div>
@@ -305,11 +310,11 @@
     <!-- Contact Me Section -->
     <section id="contact-me-section" class="bg-gray-900 bg-opacity-70 py-16 px-4">
         <div class="container mx-auto text-center">
-            <h2 class="text-4xl font-bold mb-8 text-transparent bg-clip-text bg-gradient-to-r from-blue-300 to-purple-500">
+            <h2 class="text-4xl font-bold mb-8 text-transparent bg-clip-text bg-gradient-to-r from-blue-300 to-purple-500 animate-float-text">
                 Get in Touch
             </h2>
             <div class="bg-gray-800 rounded-xl p-8 max-w-xl mx-auto shadow-2xl border border-gray-700">
-                <p class="text-xl text-gray-300 mb-4">
+                <p class="text-xl text-gray-300 mb-4 animate-float-text-slow">
                     Have a project idea, a question, or just want to say hello?
                 </p>
                 <p class="text-lg text-gray-400 mb-6">
@@ -416,14 +421,16 @@
                     description: "Pioneering artificial intelligence that learns, adapts, and innovates to solve complex challenges.",
                     status: "Upcoming",
                     icon: "🧠",
-                    aboutUrl: "https://about-cosmic-ai.vercel.app/"
+                    aboutUrl: "https://about-cosmic-ai.vercel.app/",
+                    releaseStatusText: "Set to be released in mid-2026" // New property
                 },
                 {
                     name: "Cosmic Weather",
                     description: "Predicting the future of weather with unprecedented accuracy and real-time insights.",
                     status: "Upcoming",
                     icon: "🌤️",
-                    aboutUrl: "https://cosmicweather.vercel.app/" // Updated URL for Cosmic Weather
+                    aboutUrl: "https://cosmicweather.vercel.app/", // Updated URL for Cosmic Weather
+                    releaseStatusText: "Set to be released in mid-2026" // New property
                 }
             ];
 
@@ -465,18 +472,25 @@
                 cardDiv.style.animationDelay = inView ? `${delay}s` : '0s';
 
                 cardDiv.innerHTML = `
-                    <div class="absolute top-4 right-4 text-4xl">${project.icon}</div>
+                    <div class="absolute top-4 right-4 text-4xl animate-float-icon">${project.icon}</div>
                     <h3 class="text-2xl font-bold mb-3 text-white">${project.name}</h3>
                     <p class="text-gray-300 mb-4 text-base">${project.description}</p>
-                    <div class="flex justify-between items-center mt-4">
+                    <div class="flex flex-col sm:flex-row justify-between items-center mt-4 gap-2">
                         <div class="inline-block px-4 py-1 text-sm font-semibold text-white rounded-full ${statusColor}">
                             ${project.status}
                         </div>
-                        ${project.status === "Upcoming" ? `
-                            <button class="about-project-button px-4 py-2 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white text-sm font-semibold rounded-full shadow-md transform transition-transform duration-300 hover:scale-105">
-                                About
-                            </button>
-                        ` : ''}
+                        <div class="flex items-center gap-2">
+                            ${project.status === "Upcoming" ? `
+                                <button class="about-project-button px-4 py-2 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white text-sm font-semibold rounded-full shadow-md transform transition-transform duration-300 hover:scale-105">
+                                    About
+                                </button>
+                            ` : ''}
+                            ${project.releaseStatusText ? `
+                                <span class="px-4 py-2 bg-gradient-to-r from-indigo-700 to-purple-800 text-white text-sm font-semibold rounded-full shadow-md animate-button-pulse-subtle">
+                                    ${project.releaseStatusText}
+                                </span>
+                            ` : ''}
+                        </div>
                     </div>
                 `;
 
@@ -616,7 +630,6 @@
                             case 'about-me-section':
                                 entry.target.querySelector('h2').classList.add('animate-fade-in-scale-up');
                                 entry.target.querySelector('div.bg-gray-900').classList.add('animate-fade-in-up');
-                                entry.target.querySelector('div.bg-gray-900 .text-6xl').classList.add('animate-wobble-icon'); // Apply wobble to icon
                                 break;
                             case 'contact-me-section':
                                 entry.target.querySelector('h2').classList.add('animate-fade-in-scale-up');
